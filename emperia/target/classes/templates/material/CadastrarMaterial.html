@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'">
+	
+	<head></head>
+
+<body>
+<section layout:fragment="conteudo">
+
+	<div class="page-header">
+		<div class="container-fluid">
+			<h1>
+				Cadastro de Materiais de Construção
+			</h1>
+		</div>
+	</div>
+
+<div class="container-fluid">
+
+		 <th:block th:include="fragments/MensagemSucesso"></th:block>
+
+		<form method="POST" th:object="${material}" class="form-vertical  js-form-loading">
+	
+		<th:block th:include="fragments/MensagensErroValidacao"></th:block>
+	
+			<div class="row">
+				<div class="col-sm-3  form-group">
+					<label for="nome">Nome do Material</label>
+					<input id="nome" type="text" class="form-control" th:field="*{nome}"/>
+				</div>
+				
+				<div class="col-sm-2  form-group">
+					<label for="marca">Marca</label>
+					<input id="marca" type="text" class="form-control" th:field="*{marca}"/>
+				</div>
+				
+				<div class="col-sm-2  form-group">
+					<label for="modelo">Modelo</label>
+					<input id="modelo" type="text" class="form-control" th:field="*{modelo}"/>
+				</div>
+				
+				
+				
+		
+			</div>
+
+			<div class="form-group">
+				<label for="descricao">Descrição</label>
+				<textarea id="descricao" rows="3" class="form-control" th:field="*{descricao}"></textarea>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3  form-group">
+					<label for="categoria">Categoria</label>
+					<select id="categoria" class="form-control" th:field="*{categoria}">
+					<option value="">Selecione a Categoria</option>
+						<option th:each="categoria : ${categorias}" th:value="${categoria}" 
+						th:text="${categoria.descricao}"></option>
+					</select>
+										
+				</div>
+				
+				<div class="col-sm-3  form-group">
+					<label for="tipo">Tipo</label>
+					<select id="tipo" class="form-control" th:field="*{tipo}">
+						<option value="">Selecione o tipo</option>
+						<option th:each="tipo : ${tipos}" th:value="${tipo}" 
+						th:text="${tipo.descricao}"></option>
+												
+					</select>
+				</div>
+				
+			
+				
+				<div class="col-lg-3  col-sm-6  form-group">
+					<label for="origem">Fabricação</label>
+					<div>
+						<th:block th:each="fabricacao : ${fabricacoes}">
+							<div class="radio  radio-inline">
+								<input th:id="|id_${fabricacao}|" type="radio" th:value="${fabricacao}" th:field="*{fabricacao}"> 
+								<label th:for="|id_${fabricacao}|" th:text="${fabricacao.descricao}">Nacional</label>
+							</div>
+						</th:block>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-3  form-group">
+					<label for="preco">Valor</label>
+					<div class="input-group">
+						<div class="input-group-addon">R$</div>
+						<input id="valor" type="text" class="form-control js-decimal" 
+						th:field="*{valor}"/>
+					</div>
+				</div>
+				
+				<div class="col-sm-3  form-group">
+					<label for="comissao">Comissão</label>
+					<div class="input-group">
+						<input id="comissao" type="text" class="form-control js-decimal" th:field="*{comissao}"/>
+						<div class="input-group-addon">%</div>
+					</div>
+				</div>
+				
+				<div class="col-sm-3  form-group">
+					<label for="estoque">Estoque</label>
+					<input id="estoque" type="text" class="form-control" th:field="*{estoque}"/>
+				</div>
+				
+			
+				
+			</div>
+			
+			
+			
+			<div class="form-group">
+				<button class="btn  btn-primary" type="submit">Salvar</button>
+			</div>
+	
+		</form>
+	</div>
+</section>
+	
+</body>
+</html>
